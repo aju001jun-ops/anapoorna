@@ -1,0 +1,360 @@
+body{
+
+    background:#F5FFF7;
+
+    font-family:Segoe UI,sans-serif;
+
+}
+
+.navbar{
+
+    background:rgba(46,125,50,.95);
+
+    backdrop-filter:blur(20px);
+
+}
+
+.logo{
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    color:white !important;
+
+}
+
+.nav-link{
+
+    color:white !important;
+
+    margin:0 10px;
+
+    font-weight:500;
+
+    transition:.3s;
+
+}
+
+.nav-link:hover{
+
+    color:#C8E6C9 !important;
+
+}
+
+.notification-btn{
+
+    width:45px;
+
+    height:45px;
+
+}
+
+.profile-btn{
+
+    background:white;
+
+    color:#2E7D32;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+    padding:8px 18px;
+
+}
+
+.profile-btn:hover{
+
+    background:#E8F5E9;
+
+}
+
+.dropdown-menu{
+
+    border:none;
+
+    border-radius:15px;
+
+}
+
+.dropdown-item{
+
+    padding:12px;
+
+
+}
+/* ================= HERO ================= */
+
+.hero-section{
+
+    min-height:90vh;
+
+    background:linear-gradient(rgba(46,125,50,.70),
+                               rgba(46,125,50,.70)),
+               url("C:\Users\ELCOT\Desktop\internproject\backend\anapoorna\anapoornabackend\src\main\resources\static\uploads\hero-food.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.hero-overlay{
+
+    width:100%;
+
+    padding:80px 0;
+
+}
+
+.hero-title{
+
+    font-size:58px;
+
+    font-weight:800;
+
+    color:white;
+
+    line-height:1.2;
+
+}
+
+.hero-title span{
+
+    color:#C8E6C9;
+
+}
+
+.hero-text{
+
+    color:white;
+
+    font-size:22px;
+
+    margin-top:25px;
+
+    line-height:1.8;
+
+}
+
+.hero-btn{
+
+    padding:14px 35px;
+
+    border-radius:40px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+.hero-image{
+
+    width:90%;
+
+    animation:float 4s ease-in-out infinite;
+
+}
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-12px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
+}
+/* ================= Statistics ================= */
+
+.stats-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:35px;
+
+    text-align:center;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.stats-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.stats-icon{
+
+    font-size:45px;
+
+    color:#2E7D32;
+
+}
+
+.stats-card h2{
+
+    margin-top:20px;
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#2E7D32;
+
+}
+
+.stats-card p{
+
+    font-size:18px;
+
+    color:#666;
+
+}
+/* ================= Recent Posts ================= */
+
+.recent-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+    height:100%;
+
+}
+
+.recent-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.recent-card img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+}
+
+.recent-body{
+
+    padding:20px;
+
+}
+
+.recent-title{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+.recent-address{
+
+    color:#666;
+
+}
+
+.recent-btn{
+
+    border-radius:30px;
+
+}
+.section-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+}
+
+.category-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+    height:100%;
+
+}
+
+.category-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.category-card img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+}
+
+.category-body{
+
+    padding:18px;
+
+}
+
+.category-title{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    color:#2E7D32;
+
+}
+
+.category-address{
+
+    color:#777;
+
+}
+
+.category-btn{
+
+    border-radius:25px;
+
+}

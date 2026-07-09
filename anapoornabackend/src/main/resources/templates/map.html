@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Annapoorna Map</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif;
+}
+
+body{
+background:#F4FFF6;
+overflow:hidden;
+}
+
+.navbar{
+background:rgba(46,125,50,0.85);
+backdrop-filter:blur(15px);
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+color:white;
+}
+
+.top-panel{
+
+    position:absolute;
+
+    top:80px;
+
+    left:20px;
+
+    z-index:1000;
+
+    display:flex;
+
+    gap:10px;
+
+    width:auto;
+
+    max-width:520px;
+
+}
+.glass{
+
+background:rgba(255,255,255,.18);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.35);
+
+border-radius:18px;
+
+box-shadow:0 8px 30px rgba(0,0,0,.15);
+
+}
+
+.search-box{
+
+    width:320px;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    padding:12px;
+
+}
+
+.btn-green{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#2E7D32;
+
+    color:white;
+
+    border:none;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.18);
+
+    transition:.3s;
+
+}
+
+.btn-green:hover{
+
+    transform:scale(1.08);
+
+    background:#1B5E20;
+
+}
+
+
+#map{
+
+height:calc(100vh - 70px);
+
+width:100%;
+
+}
+#panelContainer{
+
+    position:absolute;
+
+    top:70px;
+
+    right:0;
+
+    width:380px;
+
+    height:calc(100vh - 70px);
+
+    z-index:999;
+
+    padding:0;
+
+}
+
+#nearbyPanel{
+
+    display:flex;
+
+    flex-direction:column;
+
+    width:100%;
+
+    height:100%;
+
+    background:white;
+
+    border-left:1px solid #ddd;
+
+}
+
+.panel-header{
+
+    flex-shrink:0;
+
+    padding:15px;
+
+    background:white;
+
+    border-bottom:1px solid #ddd;
+
+}
+
+#nearbyList{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:15px;
+
+}
+
+.location-card{
+
+    margin-bottom:15px;
+
+    background:white;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+
+}
+
+.location-card:hover{
+
+transform:translateY(-3px);
+
+}
+
+.location-card img{
+
+width:100%;
+
+height:150px;
+
+object-fit:cover;
+
+}
+
+.location-body{
+
+padding:15px;
+
+}
+
+.selected-card{
+
+border:3px solid red;
+
+}
+ting-btn{
+
+position:absolute;
+
+bottom:35px;
+
+right:30px;
+
+z-index:1000;
+
+width:65px;
+
+height:65px;
+
+border-radius:50%;
+
+font-size:28px;
+
+background:#2E7D32;
+
+color:white;
+
+border:none;
+
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+}
+
+.floating-btn{
+
+    position:fixed;
+
+    bottom:25px;
+
+    right:25px;
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    background:#2E7D32;
+
+    color:white;
+
+    border:none;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+    z-index:9999;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+
+    transition:.3s;
+
+}
+
+.floating-btn:hover{
+
+    transform:scale(1.08);
+
+    background:#1B5E20;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg">
+
+<div class="container-fluid">
+
+<a class="navbar-brand logo" href="#">
+🌿 Annapoorna
+</a>
+
+</div>
+
+</nav>
+
+<div class="top-panel">
+
+<div class="glass d-flex align-items-center flex-grow-1 px-3">
+
+<i class="bi bi-search text-success me-2"></i>
+
+<input
+class="search-box"
+placeholder="Search nearby orphanage...">
+
+</div>
+
+<button
+class="btn-green"
+id="myLocationBtn"
+title="My Location">
+
+<i class="bi bi-crosshair"></i>
+
+</button>
+<button
+class="btn-green"
+id="nearbyBtn"
+title="Nearby">
+
+<i class="bi bi-list"></i>
+
+</button>
+</div>
+
+<div class="container-fluid p-0">
+
+    <div class="row g-0">
+
+        <!-- MAP -->
+
+        <div class="col-lg-12" id="mapContainer">">
+
+            <div id="map"></div>
+
+        </div>
+
+        <!-- RIGHT PANEL -->
+
+<div class="col-lg-4 d-none" id="panelContainer">
+            <div id="nearbyPanel">
+
+                <div class="panel-header">
+
+                    <h4>Nearby Food Points</h4>
+
+                    <input
+                        id="searchNearby"
+                        class="form-control mb-3"
+                        placeholder="Search...">
+
+                    <div class="row">
+
+                        <div class="col-6">
+
+                            <select
+                                id="typeFilter"
+                                class="form-select">
+
+                                <option value="All">All</option>
+                                <option value="Orphanage">Orphanage</option>
+                                <option value="Elderly">Elderly</option>
+                                <option value="Homeless">Homeless</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <select
+                                id="distanceFilter"
+                                class="form-select">
+
+                                <option value="5">0-5 km</option>
+                                <option value="10">0-10 km</option>
+                                <option value="20">0-20 km</option>
+                                <option value="100">All</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div id="nearbyList"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<button class="floating-btn" id="addPinBtn">
+
+<i class="bi bi-plus-lg"></i>
+
+</button>
+<div class="modal fade" id="locationModal" tabindex="-1">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <div class="modal-header bg-success text-white">
+
+                <h5>Add New Location</h5>
+
+                <button class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form id="locationForm">
+
+    <div class="mb-3">
+        <label>Person Name</label>
+        <input class="form-control" id="personName">
+    </div>
+
+    <div class="mb-3">
+        <label>Person Type</label>
+        <select class="form-select" id="personType">
+            <option>Elderly</option>
+            <option>Homeless</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Description</label>
+        <textarea class="form-control" id="description"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Phone Number</label>
+        <input type="text" id="phone" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label>Address</label>
+        <input type="text" id="address" class="form-control">
+    </div>
+
+    <div class="mb-3">
+        <label>Posted By</label>
+        <input type="text" id="postedBy" class="form-control">
+    </div>
+
+    <!-- ADD IMAGE FIELD HERE -->
+
+    <div class="mb-3">
+        <label>Upload Image</label>
+        <input
+            type="file"
+            id="image"
+            class="form-control"
+            accept="image/*">
+    </div>
+
+    <input type="hidden" id="latitude">
+    <input type="hidden" id="longitude">
+
+</form>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-success"
+                    id="saveLocation">
+
+                    Save Location
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script th:src="@{/js/map.js}"></script>
+<script th:src="@{/js/location.js}"></script>
+</body>
+
+</html>

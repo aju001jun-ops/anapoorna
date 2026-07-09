@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Annapoorna</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<link rel="stylesheet" th:href="@{/css/home.css}">
+
+</head>
+<body>
+
+<!-- ================= Navbar ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+
+    <div class="container">
+
+        <a class="navbar-brand logo" href="/">
+
+            🌿 Annapoorna
+
+        </a>
+
+        <button class="navbar-toggler"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="navbarNav">
+
+            <ul class="navbar-nav mx-auto">
+
+                <li class="nav-item">
+
+                    <a class="nav-link active"
+                       href="/home">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="/map">
+
+                        Map
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="#">
+
+                        About
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="#">
+
+                        Contact
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+            <!-- Right Side -->
+
+            <div class="d-flex align-items-center gap-3">
+
+                <button class="btn btn-light rounded-circle notification-btn">
+
+                    <i class="bi bi-bell-fill"></i>
+
+                </button>
+
+                <div class="dropdown">
+
+                    <button
+                        class="btn profile-btn dropdown-toggle"
+                        data-bs-toggle="dropdown">
+
+                        <i class="bi bi-person-circle"></i>
+
+                        Dalwin
+
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end shadow">
+
+                        <li>
+
+                            <a class="dropdown-item" href="#">
+
+                                <i class="bi bi-person"></i>
+
+                                My Profile
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a class="dropdown-item" href="#">
+
+                                <i class="bi bi-geo-alt"></i>
+
+                                My Posts
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a class="dropdown-item" href="#">
+
+                                <i class="bi bi-gear"></i>
+
+                                Settings
+
+                            </a>
+
+                        </li>
+
+                        <li><hr class="dropdown-divider"></li>
+
+                        <li>
+
+                            <a class="dropdown-item text-danger"
+                               href="/logout">
+
+                                <i class="bi bi-box-arrow-right"></i>
+
+                                Logout
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- Hero will be added here -->
+<!-- ================= Hero Section ================= -->
+
+<section class="hero-section">
+
+    <div class="hero-overlay">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-7">
+
+                    <h1 class="hero-title">
+                        Share Food,
+                        <span>Share Happiness ❤️</span>
+                    </h1>
+
+                    <p class="hero-text">
+
+                        <strong>
+                        "Happiness is not so much in having as sharing."
+                        </strong>
+
+                        <br><br>
+
+                        We make a living by what we get,
+
+                        but we make a life by what we give.
+
+                    </p>
+
+                    <div class="mt-4">
+
+                        <a href="/map"
+                           class="btn btn-success hero-btn">
+
+                            <i class="bi bi-map-fill"></i>
+
+                            Explore Map
+
+                        </a>
+
+                        <a href="#recentPosts"
+                           class="btn btn-light hero-btn ms-3">
+
+                            <i class="bi bi-heart-fill"></i>
+
+                            Recent Posts
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5 text-center">
+
+                    <img src="C:\Users\ELCOT\Desktop\internproject\backend\anapoorna\anapoornabackend\src\main\resources\static\uploads\hero-food.jpg"
+                         class="hero-image">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ================= Statistics ================= -->
+
+<section class="container py-5">
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="stats-card">
+                <i class="bi bi-house-heart-fill stats-icon"></i>
+
+                <h2 id="orphanageCount">0</h2>
+
+                <p>Orphanages</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stats-card">
+                <i class="bi bi-person-hearts stats-icon"></i>
+
+                <h2 id="elderlyCount">0</h2>
+
+                <p>Elderly</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stats-card">
+                <i class="bi bi-person-fill-slash stats-icon"></i>
+
+                <h2 id="homelessCount">0</h2>
+
+                <p>Homeless</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stats-card">
+                <i class="bi bi-geo-alt-fill stats-icon"></i>
+
+                <h2 id="postCount">0</h2>
+
+                <p>Total Posts</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+<!-- ================= Recent Posts ================= -->
+
+<section id="recentPosts" class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-clock-history text-success"></i>
+
+            Recent Food Needs
+
+        </h2>
+
+        <a href="/map" class="btn btn-success">
+
+            View All
+
+        </a>
+
+    </div>
+
+    <div class="row g-4" id="recentPostContainer">
+
+    </div>
+
+</section>
+<!-- ================= Orphanages ================= -->
+
+<section class="container py-5">
+
+    <div class="section-title">
+
+        <h2>👶 Orphanages</h2>
+
+        <a href="/map" class="btn btn-outline-success">
+            View All
+        </a>
+
+    </div>
+
+    <div class="row g-4" id="orphanageContainer"></div>
+
+</section>
+
+<!-- ================= Elderly ================= -->
+
+<section class="container py-5">
+
+    <div class="section-title">
+
+        <h2>👴 Elderly</h2>
+
+        <a href="/map" class="btn btn-outline-success">
+            View All
+        </a>
+
+    </div>
+
+    <div class="row g-4" id="elderlyContainer"></div>
+
+</section>
+
+<!-- ================= Homeless ================= -->
+
+<section class="container py-5">
+
+    <div class="section-title">
+
+        <h2>🏠 Homeless</h2>
+
+        <a href="/map" class="btn btn-outline-success">
+            View All
+        </a>
+
+    </div>
+
+    <div class="row g-4" id="homelessContainer"></div>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/home.js}"></script>
+
+</body>
+
+</html>
